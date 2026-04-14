@@ -10,10 +10,20 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final PageController _controller = PageController(viewportFraction: 0.9);
 
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
+
+      //  BODY
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -22,7 +32,7 @@ class _HomeState extends State<Home> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                // 🔹 HEADER
+                //  HEADER
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -42,7 +52,7 @@ class _HomeState extends State<Home> {
 
                 const SizedBox(height: 20),
 
-                // 🔹 LOGO
+                //  LOGO
                 Row(
                   children: [
                     SizedBox(
@@ -56,7 +66,7 @@ class _HomeState extends State<Home> {
 
                 const SizedBox(height: 20),
 
-                // 🔹 CARD SWIPE
+                //  CARD SWIPE
                 SizedBox(
                   height: 140,
                   child: PageView(
@@ -70,7 +80,7 @@ class _HomeState extends State<Home> {
 
                 const SizedBox(height: 20),
 
-                // 🔹 MENU
+                //  MENU
                 Row(
                   children: [
 
@@ -114,22 +124,19 @@ class _HomeState extends State<Home> {
 
                 const SizedBox(height: 25),
 
-                // 🔹 SPOTLIGHT TITLE
+                //  SPOTLIGHT
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
-                    Text(
-                      "Spotlight",
-                      style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
+                    Text("Spotlight",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
                     Text("Lihat Semua"),
                   ],
                 ),
 
                 const SizedBox(height: 10),
 
-                // 🔹 SPOTLIGHT BANNER
                 SizedBox(
                   height: 150,
                   child: PageView(
@@ -143,15 +150,13 @@ class _HomeState extends State<Home> {
 
                 const SizedBox(height: 25),
 
-                // 🔹 PLAN AHEAD
+                //  PLAN AHEAD
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
-                    Text(
-                      "Plan Ahead",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
+                    Text("Plan Ahead",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
                     Text("Tutup"),
                   ],
                 ),
@@ -186,22 +191,19 @@ class _HomeState extends State<Home> {
 
                 const SizedBox(height: 25),
 
-                // 🔹 SHORTCUT TITLE
+                //  SHORTCUT
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
-                    Text(
-                      "Shortcut",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
+                    Text("Shortcut",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
                     Text("Edit"),
                   ],
                 ),
 
                 const SizedBox(height: 10),
 
-                // 🔹 GRID SHORTCUT
                 GridView.count(
                   crossAxisCount: 2,
                   shrinkWrap: true,
@@ -213,20 +215,15 @@ class _HomeState extends State<Home> {
                     _shortcutItem(Icons.account_balance_wallet,
                         "Kantong Utama", "Rp49.157"),
                     _shortcutItem(Icons.trending_up, "Investasi", "BARU!"),
-                    _shortcutItem(Icons.mail, "Jago Amal",
-                        "Zakat dan Sedekah"),
-                    _shortcutItem(Icons.attach_money, "Saldo Saya",
-                        "Rp49.157"),
-                    _shortcutItem(Icons.pie_chart, "Auto Budgeting",
-                        "BARU!"),
-                    _shortcutItem(Icons.card_giftcard, "Ajak Teman",
-                        "Bonus"),
+                    _shortcutItem(Icons.mail, "Jago Amal", "Zakat dan Sedekah"),
+                    _shortcutItem(Icons.attach_money, "Saldo Saya", "Rp49.157"),
+                    _shortcutItem(Icons.pie_chart, "Auto Budgeting", "BARU!"),
+                    _shortcutItem(Icons.card_giftcard, "Ajak Teman", "Bonus"),
                   ],
                 ),
 
                 const SizedBox(height: 15),
 
-                // 🔹 TAMBAH SHORTCUT
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -247,10 +244,41 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
+
+      //  BOTTOM NAVBAR
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        selectedItemColor: Colors.orangeAccent,
+        unselectedItemColor: Colors.grey,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: "Riwayat",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.qr_code_scanner),
+            label: "QRIS",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.mail_outline),
+            label: "Inbox",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            label: "Profil",
+          ),
+        ],
+      ),
     );
   }
 
-  // 🔹 CARD
+  //  CARD
   Widget _saldoCard(String title, String saldo) {
     return Container(
       margin: const EdgeInsets.only(right: 10),
@@ -266,7 +294,8 @@ class _HomeState extends State<Home> {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.account_balance_wallet_outlined, color: Colors.orangeAccent),
+                  const Icon(Icons.account_balance_wallet_outlined,
+                      color: Colors.orangeAccent),
                   const SizedBox(width: 8),
                   Text(title,
                       style:
@@ -279,7 +308,8 @@ class _HomeState extends State<Home> {
                       style:
                           const TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(width: 5),
-                  const Icon(Icons.visibility_off_outlined, size: 18, color: Colors.orangeAccent),
+                  const Icon(Icons.visibility_off_outlined,
+                      size: 18, color: Colors.orangeAccent),
                 ],
               ),
             ],
@@ -300,7 +330,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // 🔹 BANNER
+  //  BANNER
   Widget _banner(String path) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 5),
@@ -314,7 +344,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // 🔹 SHORTCUT
+  //  SHORTCUT
   Widget _shortcutItem(
       IconData icon, String title, String subtitle) {
     return Container(
